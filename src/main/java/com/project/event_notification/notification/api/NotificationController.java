@@ -48,7 +48,7 @@ public class NotificationController {
     public ResponseEntity<Void> setReadAllNotifications(
             @RequestBody NotificationListenerList listenerList
     ) {
-        log.info("...");
+        log.info("Got request to read notifications:", listenerList.notificationIds());
         notificationService.readAllNotifications(listenerList.notificationIds());
         return ResponseEntity.status(HttpStatus.OK).build();
     }

@@ -5,9 +5,9 @@ import java.util.List;
 
 public class NotificationEvent {
     private Long eventId;
+    private List<String> users;
     private Long ownerId;
     private Long changedById;
-    private List<String> subsList;
     private FieldChange<String> name;
     private FieldChange<Integer> maxPlaces;
     private FieldChange<OffsetDateTime> date;
@@ -20,12 +20,18 @@ public class NotificationEvent {
     public NotificationEvent() {
     }
 
-    public List<String> getSubsList() {
-        return subsList;
-    }
-
-    public void setSubsList(List<String> subsList) {
-        this.subsList = subsList;
+    public NotificationEvent(Long eventId, List<String> users, Long ownerId, Long changedById, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<OffsetDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
+        this.eventId = eventId;
+        this.users = users;
+        this.ownerId = ownerId;
+        this.changedById = changedById;
+        this.name = name;
+        this.maxPlaces = maxPlaces;
+        this.date = date;
+        this.cost = cost;
+        this.duration = duration;
+        this.locationId = locationId;
+        this.status = status;
     }
 
     public Long getEventId() {
@@ -50,6 +56,14 @@ public class NotificationEvent {
 
     public void setChangedById(Long changedById) {
         this.changedById = changedById;
+    }
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
     }
 
     public FieldChange<String> getName() {
@@ -106,35 +120,5 @@ public class NotificationEvent {
 
     public void setStatus(FieldChange<EventStatus> status) {
         this.status = status;
-    }
-
-    public NotificationEvent(Long eventId, Long ownerId, Long changedById, List<String> subsList, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<OffsetDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
-        this.eventId = eventId;
-        this.ownerId = ownerId;
-        this.changedById = changedById;
-        this.subsList = subsList;
-        this.name = name;
-        this.maxPlaces = maxPlaces;
-        this.date = date;
-        this.cost = cost;
-        this.duration = duration;
-        this.locationId = locationId;
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "EventChangeKafkaMessage{" +
-                "eventId=" + eventId +
-                ", ownerId=" + ownerId +
-                ", changedById=" + changedById +
-                ", name=" + name +
-                ", maxPlaces=" + maxPlaces +
-                ", date=" + date +
-                ", cost=" + cost +
-                ", duration=" + duration +
-                ", locationId=" + locationId +
-                ", status=" + status +
-                '}';
     }
 }

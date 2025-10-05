@@ -15,15 +15,14 @@ public class NotificationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ElementCollection
+    private List<String> subsList;
 
     private Long eventId;
 
     private Long ownerId;
 
     private Long changerId;
-
-    @ElementCollection
-    private List<String> subsList;
 
     private String oldName;
     private String NewName;
