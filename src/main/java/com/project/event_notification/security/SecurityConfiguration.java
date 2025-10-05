@@ -1,5 +1,6 @@
 package com.project.event_notification.security;
 
+import com.project.event_notification.security.token.JwtTokenFilter;
 import com.project.event_notification.web.AccessDeniedExceptionHandler;
 import com.project.event_notification.web.AuthenticationEntryPointHandler;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
 @Configuration
 public class SecurityConfiguration {
@@ -18,12 +20,16 @@ public class SecurityConfiguration {
     private final AccessDeniedExceptionHandler deniedExceptionHandler;
     private final AuthenticationEntryPointHandler entryPointHandler;
 
-    public SecurityConfiguration(AccessDeniedExceptionHandler deniedExceptionHandler, AuthenticationEntryPointHandler entryPointHandler) {
+    private final JwtTokenFilter tokenFilter;
+
+    public SecurityConfiguration(AccessDeniedExceptionHandler deniedExceptionHandler, AuthenticationEntryPointHandler entryPointHandler, JwtTokenFilter tokenFilter) {
         this.deniedExceptionHandler = deniedExceptionHandler;
         this.entryPointHandler = entryPointHandler;
+        this.tokenFilter = tokenFilter;
     }
 
-    public SecurityFilterChain securityConfiguration(
+    @Bean
+    public SecurityFilterChain security(
             HttpSecurity httpSecurity
     ) throws Exception {
         return httpSecurity
@@ -44,6 +50,7 @@ public class SecurityConfiguration {
                 .exceptionHandling(exception ->
                         exception.accessDeniedHandler(deniedExceptionHandler)
                         .authenticationEntryPoint(entryPointHandler))
+                .addFilterBefore(tokenFilter, AnonymousAuthenticationFilter.class)
                 .build();
     }
 

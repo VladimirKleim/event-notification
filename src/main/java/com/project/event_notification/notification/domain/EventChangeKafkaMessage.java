@@ -1,15 +1,17 @@
 package com.project.event_notification.notification.domain;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public class EventChangeKafkaMessage{
     private Long eventId;
     private Long ownerId;
     private Long changedById;
+    private List<String> subsList;
     private FieldChange<String> name;
     private FieldChange<Integer> maxPlaces;
-    private FieldChange<LocalDateTime> date;
+    private FieldChange<OffsetDateTime> date;
     private FieldChange<Integer> cost;
     private FieldChange<Integer> duration;
     private FieldChange<Long> locationId;
@@ -17,6 +19,14 @@ public class EventChangeKafkaMessage{
 
 
     public EventChangeKafkaMessage() {
+    }
+
+    public List<String> getSubsList() {
+        return subsList;
+    }
+
+    public void setSubsList(List<String> subsList) {
+        this.subsList = subsList;
     }
 
     public Long getEventId() {
@@ -59,11 +69,11 @@ public class EventChangeKafkaMessage{
         this.maxPlaces = maxPlaces;
     }
 
-    public FieldChange<LocalDateTime> getDate() {
+    public FieldChange<OffsetDateTime> getDate() {
         return date;
     }
 
-    public void setDate(FieldChange<LocalDateTime> date) {
+    public void setDate(FieldChange<OffsetDateTime> date) {
         this.date = date;
     }
 
@@ -99,10 +109,11 @@ public class EventChangeKafkaMessage{
         this.status = status;
     }
 
-    public EventChangeKafkaMessage(Long eventId, Long ownerId, Long changedById, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<LocalDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
+    public EventChangeKafkaMessage(Long eventId, Long ownerId, Long changedById, List<String> subsList, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<OffsetDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
         this.eventId = eventId;
         this.ownerId = ownerId;
         this.changedById = changedById;
+        this.subsList = subsList;
         this.name = name;
         this.maxPlaces = maxPlaces;
         this.date = date;

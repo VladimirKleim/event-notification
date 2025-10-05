@@ -1,7 +1,5 @@
 package com.project.event_notification.security.token;
 
-import com.project.event_notification.security.auth.UserRepository;
-import com.project.event_notification.security.auth.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,22 +8,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenManager tokenManager;
 
-    private final UserRepository userRepository;
-
-
-    public JwtTokenFilter(JwtTokenManager tokenManager, UserRepository userRepository) {
+    public JwtTokenFilter(JwtTokenManager tokenManager) {
         this.tokenManager = tokenManager;
-        this.userRepository = userRepository;
-
     }
 
     @Override
@@ -47,14 +42,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
            return;
        }
 
-
-       var login = tokenManager.getLoginFromToken(jwtToken);
-       var user = userRepository.findByLogin(login);
        var role = tokenManager.getRoleFromToken(jwtToken);
 
        UsernamePasswordAuthenticationToken token =
                new UsernamePasswordAuthenticationToken(
-                       user,
+                       null,
                        null,
                        List.of(new SimpleGrantedAuthority(role))
                );
