@@ -1,6 +1,6 @@
 package com.project.event_notification.kafka;
 
-import com.project.event_notification.notification.domain.EventChangeKafkaMessage;
+import com.project.event_notification.notification.domain.NotificationEvent;
 import com.project.event_notification.notification.domain.NotificationService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -23,10 +23,10 @@ public class KafkaEventListener {
 
     @KafkaListener(topics = "event-notification", containerFactory = "containerFactory")
     public void listenEvents(
-            ConsumerRecord<Long, EventChangeKafkaMessage> record
+            ConsumerRecord<Long, NotificationEvent> record
     ) {
       log.info("Got notification event: {}", record.value());
-      EventChangeKafkaMessage message = record.value();
+      NotificationEvent message = record.value();
       notificationService.saveNotification(message);
 
     }

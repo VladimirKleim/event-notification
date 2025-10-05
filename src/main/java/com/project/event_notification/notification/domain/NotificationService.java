@@ -1,7 +1,5 @@
 package com.project.event_notification.notification.domain;
 
-import com.project.event_notification.EventNotificationApplication;
-import com.project.event_notification.notification.db.NotificationEntity;
 import com.project.event_notification.notification.db.NotificationRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -24,14 +22,14 @@ public class NotificationService {
         this.notificationConverter = notificationConverter;
     }
 
-    public void saveNotification(EventChangeKafkaMessage kafkaMessage) {
+    public void saveNotification(NotificationEvent kafkaMessage) {
       log.info("Inserted message to database: {}", kafkaMessage);
         notificationRepository.save(notificationConverter.toEntity(kafkaMessage));
 
     }
 
-    public List<EventChangeKafkaMessage> getAllUnreadMessage(String login) {
-        List<EventChangeKafkaMessage> notifications =
+    public List<NotificationEvent> getAllUnreadMessage(String login) {
+        List<NotificationEvent> notifications =
          notificationRepository.findAll()
                 .stream()
                 .filter(n -> n.getSubsList().contains(login))

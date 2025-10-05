@@ -1,16 +1,12 @@
 package com.project.event_notification.notification.domain;
 
 import com.project.event_notification.notification.db.NotificationEntity;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class NotificationConverter {
 
-    public NotificationEntity toEntity(EventChangeKafkaMessage notification) {
+    public NotificationEntity toEntity(NotificationEvent notification) {
         var notificationEntity = new NotificationEntity();
         notificationEntity.setEventId(notification.getEventId());
         notificationEntity.setOwnerId(notification.getOwnerId());
@@ -48,8 +44,8 @@ public class NotificationConverter {
     }
 
 
-    public EventChangeKafkaMessage toDomain(NotificationEntity notificationEntity) {
-        var event = new EventChangeKafkaMessage();
+    public NotificationEvent toDomain(NotificationEntity notificationEntity) {
+        var event = new NotificationEvent();
         event.setEventId(notificationEntity.getEventId());
         event.setOwnerId(notificationEntity.getOwnerId());
         event.setChangedById(notificationEntity.getChangerId());

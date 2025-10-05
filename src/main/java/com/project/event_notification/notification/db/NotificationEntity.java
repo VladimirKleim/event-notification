@@ -15,17 +15,14 @@ public class NotificationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "event_id")
+
     private Long eventId;
 
-    @Column(name = "owner_id")
     private Long ownerId;
 
-    @Column(name = "changed_by")
     private Long changerId;
 
     @ElementCollection
-    @Column(name = "subscribers")
     private List<String> subsList;
 
     private String oldName;
@@ -43,7 +40,6 @@ public class NotificationEntity {
     private String oldEventStatus;
     private String newEventStatus;
 
-    @Column(name = "is_read")
     private Boolean isRead;
 
     public NotificationEntity() {

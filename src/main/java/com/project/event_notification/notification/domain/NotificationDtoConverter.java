@@ -2,11 +2,9 @@ package com.project.event_notification.notification.domain;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class NotificationDtoConverter {
-    public NotificationDto toDto(EventChangeKafkaMessage gotMessage) {
+    public NotificationDto toDto(NotificationEvent gotMessage) {
         var notification = new NotificationDto();
         notification.setEventId(gotMessage.getEventId());
         if (gotMessage.getName() != null) {

@@ -1,10 +1,9 @@
 package com.project.event_notification.notification.domain;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-public class EventChangeKafkaMessage{
+public class NotificationEvent {
     private Long eventId;
     private Long ownerId;
     private Long changedById;
@@ -18,7 +17,7 @@ public class EventChangeKafkaMessage{
     private FieldChange<EventStatus> status;
 
 
-    public EventChangeKafkaMessage() {
+    public NotificationEvent() {
     }
 
     public List<String> getSubsList() {
@@ -109,7 +108,7 @@ public class EventChangeKafkaMessage{
         this.status = status;
     }
 
-    public EventChangeKafkaMessage(Long eventId, Long ownerId, Long changedById, List<String> subsList, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<OffsetDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
+    public NotificationEvent(Long eventId, Long ownerId, Long changedById, List<String> subsList, FieldChange<String> name, FieldChange<Integer> maxPlaces, FieldChange<OffsetDateTime> date, FieldChange<Integer> cost, FieldChange<Integer> duration, FieldChange<Long> locationId, FieldChange<EventStatus> status) {
         this.eventId = eventId;
         this.ownerId = ownerId;
         this.changedById = changedById;
